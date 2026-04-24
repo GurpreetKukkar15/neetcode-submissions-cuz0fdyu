@@ -1,0 +1,29 @@
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        ans = []
+        i = 0
+        #while the end of the interval are strictly smaller than the newInterval
+
+        while i < len(intervals) and intervals[i][1] < newInterval[0]:
+                ans.append(intervals[i])
+                i += 1
+        
+
+        # Handling the overlap
+        while i < len(intervals) and intervals[i][0] <= newInterval[1]:
+            
+            newInterval[0] = min(intervals[i][0] , newInterval[0] )
+            newInterval[1] = max(intervals[i][1] , newInterval[1])
+
+            i += 1
+        
+        ans.append(newInterval)
+
+        # while the start of an interval is stricly greater than the newInterval
+
+        while i < len(intervals) and intervals[i][0] > newInterval[1]:
+                ans.append(intervals[i])
+                i += 1
+        
+
+        return ans
